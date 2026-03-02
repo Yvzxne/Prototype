@@ -132,7 +132,7 @@ export default function ReportsPage() {
       </div>
 
       {viewingDetails && (
-        <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-100 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden flex flex-col max-h-[85vh]">
             <div className="p-4 bg-slate-900 text-white flex justify-between items-center shrink-0">
               <div>

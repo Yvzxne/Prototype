@@ -243,7 +243,7 @@ export default function AttendancePage() {
       </div>
 
       {editingLog && (
-        <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-100 flex items-center justify-center p-4">
           <div className="bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-200 flex flex-col">
             <div className="p-5 bg-red-600 text-white flex justify-between items-center shrink-0">
               <div>
@@ -303,7 +303,7 @@ export default function AttendancePage() {
       )}
 
       {showSuccessToast && (
-        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-slate-500 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-4 duration-300 z-[110]">
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-slate-500 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-4 duration-300 z-110">
           <span className="text-sm font-bold tracking-tight">Record corrected and logged successfully!</span>
         </div>
       )}

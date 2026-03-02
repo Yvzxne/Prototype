@@ -58,8 +58,8 @@ export default function HRDashboard() {
           
           <div className="bg-white p-8 rounded-[3rem] border border-slate-200 shadow-sm flex flex-col md:flex-row items-center gap-8">
             <div className="relative shrink-0">
-              <div className="w-32 h-32 rounded-full border-[12px] border-slate-50 flex items-center justify-center relative">
-                <div className="absolute inset-0 rounded-full border-[12px] border-red-500 border-t-transparent -rotate-45" />
+              <div className="w-32 h-32 rounded-full border-12 border-slate-50 flex items-center justify-center relative">
+                <div className="absolute inset-0 rounded-full border-12 border-red-500 border-t-transparent -rotate-45" />
                 <p className="text-2xl font-black text-slate-800">92%</p>
               </div>
             </div>
