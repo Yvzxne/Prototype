@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from 'react';
 import { Shield, Lock, Eye, EyeOff, Save, CheckCircle } from 'lucide-react';
 
@@ -32,7 +33,7 @@ export default function SettingsPage() {
   return (
     <div className="space-y-6 relative">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-black text-slate-800 uppercase tracking-tight">
+        <h2 className="text-2xl font-black text-slate-800 tracking-tight">
           Account Settings
         </h2>
         <button 
@@ -83,7 +84,7 @@ export default function SettingsPage() {
         <div className="space-y-6">
           <div className="bg-slate-900 p-8 text-white rounded-3xl shadow-sm">
             <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
-              <Shield size={16} className="text-red-500" /> Security Status
+              <Shield size={16} className="text-red-500" /> Account Status
             </h3>
             <div className="space-y-4">
               <div className="pb-4 border-b border-white/10">
@@ -92,7 +93,15 @@ export default function SettingsPage() {
                   {userData.role}
                 </p>
               </div>
-              <div>
+              <div className="space-y-3">
+                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Active Permissions</p>
+                {['Full Access', 'Attendance Correction', 'Report Generation', 'User Management'].map((perm) => (
+                  <div key={perm} className="flex items-center gap-2 text-xs font-bold text-slate-300">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" /> {perm}
+                  </div>
+                ))}
+              </div>
+              <div className="pt-4 border-t border-white/10">
                 <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Last Login</p>
                 <p className="text-sm font-medium">Today at {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
               </div>

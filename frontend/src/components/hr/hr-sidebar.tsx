@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
@@ -14,12 +14,27 @@ import {
 
 export default function Sidebar({ isMobileOpen, setIsMobileOpen, isCollapsed, setIsCollapsed }: any) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [isEmployeesOpen, setIsEmployeesOpen] = useState(false);
+  const [isReportsOpen, setIsReportsOpen] = useState(false);
 
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     { name: 'Dashboard', href: '/hr/dashboard', icon: LayoutDashboard },
     { name: 'Attendance', href: '/hr/attendance', icon: Clock },
-    { name: 'Employees', href: '/hr/employees', icon: Users },
-    { name: 'Reports', href: '/hr/reports', icon: FileText },
+    { 
+      name: 'Employees', 
+      href: '/hr/employees', 
+      icon: Users,
+      hasSubmenu: true,
+      submenu: [{ name: 'Inactive', filter: 'Inactive', icon: UserX }]
+    },
+    { 
+      name: 'Reports', 
+      href: '/hr/reports', 
+      icon: FileText,
+      hasSubmenu: true,
+      submenu: [{ name: 'Adjustment Logs', href: '/hr/adjusts', icon: History }]
+    },
   ];
 
   const allItems = [...menuItems, { name: 'Settings', href: '/hr/settings', icon: Settings }];

@@ -3,9 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { Edit2, ChevronLeft, ChevronRight, AlertCircle, X, UserPlus } from 'lucide-react';
 
-export default function EmployeesPage() {
+function EmployeeDirectoryContent() {
+  const searchParams = useSearchParams();
+  const statusFilter = searchParams.get('status') || "Active";
+  
   const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState("Active");
   const [deptFilter, setDeptFilter] = useState("All Departments");
   const [branchFilter, setBranchFilter] = useState("All Branches");
   const [editingEmployee, setEditingEmployee] = useState<any>(null);
@@ -361,5 +363,13 @@ export default function EmployeesPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function EmployeesPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center font-bold text-slate-400">LOADING DIRECTORY...</div>}>
+      <EmployeeDirectoryContent />
+    </Suspense>
   );
 }
