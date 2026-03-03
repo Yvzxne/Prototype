@@ -10,7 +10,7 @@ import {
 } from 'recharts'
 import { Users, Clock, AlertCircle, TrendingUp, Building2, FileText, ArrowRight } from 'lucide-react'
 import { DEPARTMENTS } from '@/types/departments'
-import { BRANCHES } from '@/types/branches'
+
 
 // ─── Color tokens ────────────────────────────────────────
 const RED    = '#C8102E'
@@ -108,8 +108,13 @@ export default function Dashboard() {
 
       // ── Department breakdown ──────────────────────────
       const dmap = new Map<string, { total: number; present: number }>()
+      // Pre-seed all known departments so they always appear
       DEPARTMENTS.forEach(d => dmap.set(d, { total: 0, present: 0 }))
-      emps.forEach((e: any) => { if (e.department && dmap.has(e.department)) dmap.get(e.department)!.total++ })
+      emps.forEach((e: any) => {
+        if (!e.department) return
+        if (!dmap.has(e.department)) dmap.set(e.department, { total: 0, present: 0 })
+        dmap.get(e.department)!.total++
+      })
       todayRecs.forEach((r: any) => {
         const e = r.employee || emps.find((x: any) => x.id === r.employeeId)
         if (e?.department && dmap.has(e.department)) dmap.get(e.department)!.present++
@@ -129,7 +134,7 @@ export default function Dashboard() {
           const tb = new Date(a.checkOutTime || a.checkInTime).getTime()
           return ta - tb
         })
-        .slice(0, 20)
+        .slice(0, 5)
 
       setActivity(sorted.map((r: any, i: number) => {
         const e    = r.employee || emps.find((x: any) => x.id === r.employeeId) || {}
@@ -178,7 +183,7 @@ export default function Dashboard() {
 
   const statCards = [
     { label: 'Total Employees', value: empStats.total,  sub: `${empStats.active} active`,     icon: Users,        color: '#6366f1', bg: '#6366f115' },
-    { label: 'Present Today',   value: attStats.present, sub: `${rate}% rate`,                icon: Clock,        color: '#22c55e', bg: '#22c55e15' },
+    { label: 'On time',   value: attStats.present, sub: `${rate}% rate`,                icon: Clock,        color: '#22c55e', bg: '#22c55e15' },
     { label: 'Late',            value: attStats.late,   sub: `+${attStats.overtime}h overtime`,icon: TrendingUp,   color: GOLD,      bg: `${GOLD}20`  },
     { label: 'Absent',          value: attStats.absent, sub: `${attStats.undertime}h undertime`,icon: AlertCircle, color: RED,       bg: `${RED}15`   },
   ]

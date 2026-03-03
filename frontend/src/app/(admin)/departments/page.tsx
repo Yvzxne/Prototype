@@ -171,8 +171,9 @@ export default function DepartmentsPage() {
     <div className="space-y-6">
 
       {/* Confirm Delete Dialog */}
-      {confirmDelete && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-slate-950/40 backdrop-blur-sm">
+
+{confirmDelete && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/40 backdrop-blur-sm">
           <div className="bg-card border border-border rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center shrink-0">
@@ -200,7 +201,7 @@ export default function DepartmentsPage() {
 
       {/* Edit Department Dialog */}
       {editingDept && (
-        <div className="fixed inset-0 z-100 flex items-center justify-center bg-slate-950/40 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/40 backdrop-blur-sm">
           <div className="bg-white border-0 rounded-2xl shadow-xl max-w-md w-full mx-4 overflow-hidden">
             <div className="bg-red-600 px-6 py-4 flex items-center justify-between">
               <div>
@@ -274,22 +275,20 @@ export default function DepartmentsPage() {
                 <div className="flex gap-2 mt-1.5">
                   <button
                     onClick={() => setAddType('department')}
-                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all border ${
-                      addType === 'department'
+                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all border ${addType === 'department'
                         ? 'bg-red-50 border-red-200 text-red-600'
                         : 'bg-slate-50 border-slate-200 text-slate-400 hover:text-slate-600'
-                    }`}
+                      }`}
                   >
                     <Building2 className="w-4 h-4" />
                     Department
                   </button>
                   <button
                     onClick={() => setAddType('branch')}
-                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all border ${
-                      addType === 'branch'
+                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold transition-all border ${addType === 'branch'
                         ? 'bg-red-50 border-red-200 text-red-600'
                         : 'bg-slate-50 border-slate-200 text-slate-400 hover:text-slate-600'
-                    }`}
+                      }`}
                   >
                     <MapPin className="w-4 h-4" />
                     Branch
@@ -417,22 +416,20 @@ export default function DepartmentsPage() {
           <div className="flex items-center bg-slate-100 rounded-xl p-1">
             <button
               onClick={() => setViewMode('grid')}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all ${
-                viewMode === 'grid'
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all ${viewMode === 'grid'
                   ? 'bg-white text-slate-700 shadow-sm'
                   : 'text-slate-400 hover:text-slate-600'
-              }`}
+                }`}
             >
               <LayoutGrid className="w-3.5 h-3.5" />
               Grid
             </button>
             <button
               onClick={() => setViewMode('list')}
-              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all ${
-                viewMode === 'list'
+              className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-bold transition-all ${viewMode === 'list'
                   ? 'bg-white text-slate-700 shadow-sm'
                   : 'text-slate-400 hover:text-slate-600'
-              }`}
+                }`}
             >
               <List className="w-3.5 h-3.5" />
               List

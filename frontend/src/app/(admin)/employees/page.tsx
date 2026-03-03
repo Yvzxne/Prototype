@@ -10,8 +10,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
 import { Search, Plus, Edit2, ChevronLeft, ChevronRight, Upload, AlertTriangle, AlertCircle, X as XIcon } from 'lucide-react'
-import { DEPARTMENTS } from '@/types/departments'
-import type { Branch } from '@/types/branches'
+import { departmentsApi, branchesApi } from '@/lib/api'
+import type { Department, Branch } from '@/lib/api'
 
 type Employee = {
   id: number
@@ -62,19 +62,24 @@ export default function EmployeesPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const rowsPerPage = 10
 
-  const departments = [...DEPARTMENTS]
+  const [departments, setDepartments] = useState<Department[]>([])
   const [branches, setBranches] = useState<Branch[]>([])
 
   const fetchBranches = async () => {
     try {
-      const token = localStorage.getItem('token')
-      const res = await fetch('/api/branches', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      })
-      const data = await res.json()
+      const data = await branchesApi.getAll()
       if (data.success) setBranches(data.branches)
     } catch (error) {
       console.error('Error fetching branches:', error)
+    }
+  }
+
+  const fetchDepartments = async () => {
+    try {
+      const data = await departmentsApi.getAll()
+      if (data.success) setDepartments(data.departments)
+    } catch (error) {
+      console.error('Error fetching departments:', error)
     }
   }
 
@@ -105,6 +110,7 @@ export default function EmployeesPage() {
   useEffect(() => {
     fetchEmployees()
     fetchBranches()
+    fetchDepartments()
   }, [])
 
   const filteredEmployees = employees.filter(emp => {
@@ -255,7 +261,7 @@ export default function EmployeesPage() {
                   <label className="text-[9px] font-black uppercase text-slate-400 tracking-wider">Department</label>
                   <select value={editForm.department || ''} onChange={(e) => setEditForm({ ...editForm, department: e.target.value })} className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 outline-none focus:ring-2 focus:ring-red-500/20">
                     <option value="" disabled>Select Department</option>
-                    {departments.map(d => (<option key={d} value={d}>{d}</option>))}
+                    {departments.map(d => (<option key={d.id} value={d.name}>{d.name}</option>))}
                   </select>
                 </div>
                 <div className="space-y-1">
@@ -497,7 +503,7 @@ export default function EmployeesPage() {
                     >
                       <option value="" disabled>e.g. Human Resources</option>
                       {departments.map(dept => (
-                        <option key={dept} value={dept}>{dept}</option>
+                        <option key={dept.id} value={dept.name}>{dept.name}</option>
                       ))}
                     </select>
                   </div>
@@ -568,7 +574,7 @@ export default function EmployeesPage() {
               <SelectContent className="bg-secondary border-border">
                 <SelectItem value="all">All Departments</SelectItem>
                 {departments.map(dept => (
-                  <SelectItem key={dept} value={dept}>{dept}</SelectItem>
+                  <SelectItem key={dept.id} value={dept.name}>{dept.name}</SelectItem>
                 ))}
               </SelectContent>
             </Select>

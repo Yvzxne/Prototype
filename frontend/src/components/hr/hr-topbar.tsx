@@ -1,9 +1,8 @@
-
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Search, User, Menu, Settings, LogOut, ChevronDown } from 'lucide-react';
+import { User, Menu, Settings, LogOut, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 
 export default function TopBar({ setIsMobileOpen }: { setIsMobileOpen: (val: boolean) => void }) {
@@ -27,10 +26,6 @@ export default function TopBar({ setIsMobileOpen }: { setIsMobileOpen: (val: boo
       setUserName('HR');
     }
     const timer = setInterval(() => setTime(new Date()), 1000);
-
-    
-    window.addEventListener('profileUpdate', updateImage);
-
     return () => {
       clearInterval(timer);
     };
@@ -59,16 +54,14 @@ export default function TopBar({ setIsMobileOpen }: { setIsMobileOpen: (val: boo
         <button onClick={() => setIsMobileOpen(true)} className="lg:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-lg">
           <Menu size={24} />
         </button>
-        <div className="rounded-2xl flex items-center justify-center shadow-lg">
-            <Image src="/images/av.jpg" alt="Logo" width={70} height={24} className="object-contain" />
+        <div className="flex items-center gap-3">
+          
+          <div className="relative h-11 w-11 overflow-hidden rounded-xl border border-red-700 bg-[#FE0908]">
+            <Image src="/images/av.jpg" alt="Logo" fill className="object-contain" priority quality={100} />
           </div>
-
-          <div className="flex items-center">
-            <h1 className="text-[#E60000] font-black text-2xl tracking-tighter uppercase whitespace-nowrap">
-              BITS
-            </h1>
-          </div>
+          <h1 className="text-[#E60000] font-black text-2xl tracking-tighter uppercase whitespace-nowrap">BITS</h1>
         </div>
+      </div>
 
       <div className="flex items-center gap-3 md:gap-6">
         <button 
@@ -107,30 +100,22 @@ export default function TopBar({ setIsMobileOpen }: { setIsMobileOpen: (val: boo
             <div className="absolute right-0 mt-2 w-52 bg-white border border-slate-200 rounded-2xl shadow-xl py-2 z-50 origin-top-right animate-in fade-in slide-in-from-top-4 zoom-in-95 duration-200 ease-out">
               <div className="px-4 py-3 border-b border-slate-50 text-center">
                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Signed in as</p>
-                <p className="text-sm font-black text-slate-800 uppercase tracking-tight">{userName || 'mwehehe'}</p>
+                <p className="text-sm font-black text-slate-800 uppercase tracking-tight">{userName || 'Mwehehe'}</p>
               </div>
               <div className="p-1">
-                  <Link 
-                    href="/hr/profile" 
-                    onClick={() => setIsProfileOpen(false)} 
-                    className="w-full flex items-center gap-3 px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-xl transition-colors"
-                  >
-                    <User size={16} /> My Profile
-                  </Link>
-                </div>
-
-                <div className="p-1 border-t border-slate-50 mt-1">
-                  <button 
-                    onClick={handleLogout} 
-                    className="w-full flex items-center gap-3 px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 rounded-xl transition-colors text-left"
-                  >
-                    <LogOut size={16} /> Logout
-                  </button>
-                </div>
+                <Link href="/hr/settings" onClick={() => setIsProfileOpen(false)} className="w-full flex items-center gap-3 px-3 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 rounded-xl transition-colors">
+                  <Settings size={16} /> Account Settings
+                </Link>
               </div>
-            )}
-          </div>
-        </div> 
-      </header>
-    );
-  }
+              <div className="p-1 border-t border-slate-50 mt-1">
+                <button onClick={handleLogout} className="w-full flex items-center gap-3 px-3 py-2 text-sm font-semibold text-red-600 hover:bg-red-50 rounded-xl transition-colors text-left">
+                  <LogOut size={16} /> Logout
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </header>
+  );
+}

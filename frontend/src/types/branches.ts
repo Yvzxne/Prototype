@@ -1,13 +1,8 @@
-export type Branch = {
-  id: number
-  name: string
-}
+export type { Branch } from '@/lib/api'
 
-export const DEFAULT_BRANCHES: Branch[] = [
-  { id: 1, name: 'NRA' },
-  { id: 2, name: 'MAIN OFFICE' },
-  { id: 3, name: 'WAREHOUSE A' },
-]
-
-// Alias used by departments page
-export const BRANCHES = DEFAULT_BRANCHES
+// Static list kept for any dropdowns that don't need live API data
+export const BRANCHES = [
+  'NRA',
+  'TAYUD',
+  'MAKATI',
+] as const
